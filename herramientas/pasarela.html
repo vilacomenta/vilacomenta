@@ -1,0 +1,10 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Vilacomenta · pasarela</title></head>
+<body style="font-family:system-ui;padding:24px"><p id="s">Preparando archivo…</p>
+<script>
+(async()=>{const q=new URLSearchParams(location.search);const src=q.get('src'),name=q.get('name')||'video.mp4';
+const s=document.getElementById('s');
+try{const r=await fetch(src,{cache:'no-store'});const b=await r.blob();const f=new File([b],name,{type:b.type||'video/mp4'});
+ if(!window.opener){s.textContent='Sin ventana de origen';return}
+ window.opener.postMessage({vilacomenta:'archivo',file:f},'*');s.textContent='Enviado ('+b.size+' bytes)';setTimeout(()=>window.close(),1500)}
+catch(e){s.textContent='Error: '+e}})();
+</script></body></html>
